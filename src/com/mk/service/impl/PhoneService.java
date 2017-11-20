@@ -111,10 +111,8 @@ public class PhoneService extends Service<Phone, PhoneDao> {
 		
 		if ( Utils.isNull(start) || Utils.isNull(limit))
 			return ps;
-		List<Integer> cs=dao.topCompany(start, limit);
-		ps=new ArrayList<>();
-		for(Integer c :cs)
-			ps.add(companyDao.get(c));
+		ps=dao.topCompany(start, limit);
+		
 		return ps;
 	}
 

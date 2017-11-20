@@ -9,6 +9,12 @@ public class URL {
 		String base = "";
 		String info = base + "/info";
 		String login = base + "/login";
+		String register = base + "/register";
+		String logout = base + "/logout";
+		String checkLogin= base + "/checkLogin";
+		String userInfo =base +  "/userInfo";
+		String modifyPassword =base +  "/password";
+		String modifyEmail =base +  "/email";
 
 	}
 

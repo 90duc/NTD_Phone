@@ -123,10 +123,10 @@ public class PhoneDao extends Dao<Phone> {
 	}
 	
 	
-	public List<Integer> topCompany(Integer start, Integer limit) {
-	    List<Integer> userList = null;
+	public List<Company> topCompany(Integer start, Integer limit) {
+	    List<Company> userList = null;
         Session session = factory.openSession();
-        String hql="select p.cid.cid from " + entityClass.getSimpleName() +" p  order by p.rank desc group by p.cid.cid";
+        String hql="select p.cid from " + entityClass.getSimpleName() +" p group by p.cid order by max(p.rank) desc ";
         try {
             Query query = (Query) session.createQuery(hql);
             query.setFirstResult(start);

@@ -6,13 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mk.dao.impl.CompanyDao;
-import com.mk.dao.impl.PhoneDao;
 import com.mk.entity.Company;
 import com.mk.entity.Phone;
 import com.mk.service.impl.CompanyService;
 import com.mk.service.impl.PhoneService;
-import com.mk.util.Utils;
 
 @Controller
 public class Test {
@@ -40,10 +37,11 @@ public class Test {
 		
 		 return b;
 	}
+	
 	public static void main(String[] args) {
-		String a="张三";
-		String p="YTVlMGUwZjU4OGNmMGM1NDliN2Y0NjhkMmQyMGYzOWY3YzRhOGQwOWNhMzc2MmFmNjFlNTk1MjA5NDNkYzI2NDk0Zjg5NDFiMDAwMDQzMmFjYTNhMWUzNDVlMzM5ZjM1YTMwYzhmNjVlZGNl";
-		String b="7c4a8d09ca3762af61e59520943dc26494f8941b";
-		System.out.println(Utils.decode(p));
+		String password ="a-\\p@q9.com";
+		System.out.println(password.matches("[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+"));
 	}
+	
+	
 }
