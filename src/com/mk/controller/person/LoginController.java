@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,20 +45,21 @@ public class LoginController {
 	
 	@ResponseBody
 	@RequestMapping(URL.Person.login)
-	public Map<String, Object> login(String account, String password) {
+	public Map<String, Object> login(String account, String password,HttpServletRequest request) {
 
 		Map<String, Object> map = userService.login(account, password);
 		
-		this.saveLoginStatus(map);
+		this.saveLoginStatus(map,request);
 		
 		return map;
 	}
 
-	private void saveLoginStatus(Map<String, Object> map) {
+	private void saveLoginStatus(Map<String, Object> map,HttpServletRequest request) {
 		boolean status=(boolean) map.get(NameInfo.status);
 		if (status){
 			User user =(User)map.get(NameInfo.user);
 			session.setAttribute(NameInfo.userId, user.getUid());
+			userService.saveLoginInfo(user.getUid(),Utils.getRemoteHost(request)+':'+request.getRemotePort());
 		}
 	}
 	
@@ -72,7 +74,7 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping(URL.Person.register)
 	public Map<String, Object> register(String account, String userName,
-			String password, String password2) {
+			String password, String password2,HttpServletRequest request) {
 
 		Map<String, Object> map = null;
 		if (Objects.equals(password, password2))
@@ -85,7 +87,7 @@ public class LoginController {
 			map.put(NameInfo.msg, status.getValue());
 		}
 
-		this.saveLoginStatus(map);
+		this.saveLoginStatus(map,request);
 			
 		return map;
 	}

@@ -1,6 +1,8 @@
 package com.mk.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -8,8 +10,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.mk.dao.impl.LoginInfoDao;
+import com.mk.dao.impl.SensitiveOperationDao;
 import com.mk.dao.impl.UserDao;
 import com.mk.dao.impl.UserInfoDao;
+import com.mk.entity.LoginInfo;
+import com.mk.entity.LoginInfoPK;
+import com.mk.entity.SensitiveOperation;
+import com.mk.entity.SensitiveOperationPK;
 import com.mk.entity.User;
 import com.mk.entity.UserInfo;
 import com.mk.info.MsgInfo.Account;
@@ -135,20 +143,20 @@ public class UserService extends Service<User, UserDao> {
 		Status status = null;
 		// 密码检验
 		if ((status = Utils.checkPassword(newPassword)).isSuccess()) {
+			String lock = getLock(id, "u");
+			synchronized (lock) {
+				User user = dao.get(id);
+				// 账号不存在
+				if (Utils.isNull(user)) {
+					status = Status.error(Account.accountNoExist);
+				} else
+				// 账号存在
+				{
 
-			User user = dao.get(id);
-			// 账号不存在
-			if (Utils.isNull(user)) {
-				status = Status.error(Account.accountNoExist);
-			} else
-			// 账号存在
-			{
-				String lock = ("u" + user.getUid()).intern();
-				synchronized (lock) {
 					if (Objects.equals(user.getPassword(), oldPassword)) {
 						user.setPassword(newPassword);
 						// 密码保存成功
-						if (dao.save(user)) {
+						if (dao.update(user)) {
 							status = Status
 									.success(Password.modifyPasswordSuccess);
 						} else
@@ -157,16 +165,22 @@ public class UserService extends Service<User, UserDao> {
 							status = Status.error(OtherError.databaseError);
 						}
 					} else {
-						status = Status.error(Password.oldNewDifferent);
+						status = Status.error(Password.oldPasswordDifferent);
 					}
 				}
 			}
+		} else {
+			status = Status.error("新" + status.getValue());
 		}
 		// 填充返回结果
 		map.put(NameInfo.status, status.isSuccess());
 		map.put(NameInfo.msg, status.getValue());
 
 		return map;
+	}
+
+	private String getLock(Integer id, String prefix) {
+		return (prefix + id).intern();
 	}
 
 	public Map<String, Object> modifyEmail(Integer id, String oldEmail,
@@ -177,21 +191,99 @@ public class UserService extends Service<User, UserDao> {
 		// 邮箱检验
 		if ((status = Utils.checkEmail(newEmail)).isSuccess()) {
 
-			User user = dao.get(id);
-			// 账号不存在
-			if (Utils.isNull(user)) {
-				status = Status.error(Account.accountNoExist);
-			} else
-			// 账号存在
-			{
-				String lock = ("u" + user.getUid()).intern();
-				synchronized (lock) {
+			String lock = getLock(id, "u");
+			synchronized (lock) {
+				User user = dao.get(id);
+				// 账号不存在
+				if (Utils.isNull(user)) {
+					status = Status.error(Account.accountNoExist);
+				} else if (!Utils.isNull(dao.get(newEmail))) {
+					status = Status.error(Email.emailExist);
+				} else
+				// 账号存在
+				{
+
 					if (Objects.equals(user.getEmail(), oldEmail)) {
 						user.setEmail(newEmail);
 						// 密码保存成功
-						if (dao.save(user)) {
-							status = Status
-									.success(Email.modifyEmailSuccess);
+						if (dao.update(user)) {
+							status = Status.success(Email.modifyEmailSuccess);
+						} else
+						// 数据库出错
+						{
+							status = Status.error(OtherError.databaseError);
+						}
+					} else {
+						status = Status.error(OtherError.dataNoSync);
+					}
+				}
+
+			}
+		}
+		// 填充返回结果
+		map.put(NameInfo.status, status.isSuccess());
+		map.put(NameInfo.msg, status.getValue());
+
+		return map;
+	}
+
+	@Autowired
+	private LoginInfoDao loginInfoDao;
+
+	public List<LoginInfo> getLoginInfo(Integer id, int start, int limit) {
+
+		return loginInfoDao.list(id, start, limit);
+	}
+
+	@Autowired
+	private SensitiveOperationDao sensitiveOperationDao;
+
+	public List<SensitiveOperation> getSensitiveOperation(Integer id,
+			int start, int limit) {
+
+		return sensitiveOperationDao.list(id, start, limit);
+	}
+
+	public void saveLoginInfo(Integer uid, String ip) {
+		LoginInfo loginInfo = new LoginInfo();
+		loginInfo.setLoginInfoPK(new LoginInfoPK(uid, new Date()));
+		loginInfo.setIp(ip);
+		loginInfo.setProduct("NTD Phone");
+		loginInfoDao.save(loginInfo);
+	}
+
+	public void saveModifyOperation(Integer uid, String ip, String type) {
+		SensitiveOperation operation = new SensitiveOperation();
+		operation.setSensitiveOperationPK(new SensitiveOperationPK(uid,
+				new Date()));
+		operation.setIp(ip);
+		operation.setOperation(type);
+		sensitiveOperationDao.save(operation);
+
+	}
+
+	public Map<String, Object> modifyNickName(Integer id, String oldName,
+			String newName) {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		Status status = null;
+		// 昵称检验
+		if ((status = Utils.checkUserName(newName)).isSuccess()) {
+
+			String lock = getLock(id, "u");
+			synchronized (lock) {
+				User user = dao.get(id);
+				// 账号不存在
+				if (Utils.isNull(user)) {
+					status = Status.error(Account.accountNoExist);
+				} else
+				// 账号存在
+				{
+					if (Objects.equals(user.getName(), oldName)) {
+						user.setName(newName);
+						// 密码保存成功
+						if (dao.update(user)) {
+							status = Status.success(Email.modifyEmailSuccess);
 						} else
 						// 数据库出错
 						{

@@ -11,11 +11,14 @@ public class URL {
 		String login = base + "/login";
 		String register = base + "/register";
 		String logout = base + "/logout";
-		String checkLogin= base + "/checkLogin";
-		String userInfo =base +  "/userInfo";
-		String modifyPassword =base +  "/password";
-		String modifyEmail =base +  "/email";
-
+		String checkLogin = base + "/checkLogin";
+		String userInfo = base + "/userInfo";
+		String modifyPassword = base + "/password";
+		String modifyEmail = base + "/email";
+		String loginInfo = base + "/loginInfo";
+		String sensitiveOperation = base + "/operate";
+		String icon = base + "/icon";
+		String nickName = base + "/nickname";
 	}
 
 	public static interface Phone {

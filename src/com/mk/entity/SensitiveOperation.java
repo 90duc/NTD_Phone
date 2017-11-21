@@ -24,7 +24,7 @@ public class SensitiveOperation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected SensitiveOperationPK sensitiveOperationPK;
+    protected SensitiveOperationPK operationPK;
     @Column(name = "ip")
     private String ip;
     @Column(name = "city")
@@ -36,19 +36,19 @@ public class SensitiveOperation implements Serializable {
     }
 
     public SensitiveOperation(SensitiveOperationPK sensitiveOperationPK) {
-        this.sensitiveOperationPK = sensitiveOperationPK;
+        this.operationPK = sensitiveOperationPK;
     }
 
     public SensitiveOperation(int uid, Date time) {
-        this.sensitiveOperationPK = new SensitiveOperationPK(uid, time);
+        this.operationPK = new SensitiveOperationPK(uid, time);
     }
 
     public SensitiveOperationPK getSensitiveOperationPK() {
-        return sensitiveOperationPK;
+        return operationPK;
     }
 
     public void setSensitiveOperationPK(SensitiveOperationPK sensitiveOperationPK) {
-        this.sensitiveOperationPK = sensitiveOperationPK;
+        this.operationPK = sensitiveOperationPK;
     }
 
     public String getIp() {
@@ -78,7 +78,7 @@ public class SensitiveOperation implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (sensitiveOperationPK != null ? sensitiveOperationPK.hashCode() : 0);
+        hash += (operationPK != null ? operationPK.hashCode() : 0);
         return hash;
     }
 
@@ -89,7 +89,7 @@ public class SensitiveOperation implements Serializable {
             return false;
         }
         SensitiveOperation other = (SensitiveOperation) object;
-        if ((this.sensitiveOperationPK == null && other.sensitiveOperationPK != null) || (this.sensitiveOperationPK != null && !this.sensitiveOperationPK.equals(other.sensitiveOperationPK))) {
+        if ((this.operationPK == null && other.operationPK != null) || (this.operationPK != null && !this.operationPK.equals(other.operationPK))) {
             return false;
         }
         return true;
@@ -97,7 +97,7 @@ public class SensitiveOperation implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mk.entity.SensitiveOperation[ sensitiveOperationPK=" + sensitiveOperationPK + " ]";
+        return "com.mk.entity.SensitiveOperation[ sensitiveOperationPK=" + operationPK + " ]";
     }
     
 }

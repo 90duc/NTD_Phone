@@ -2,6 +2,8 @@ package com.mk.util;
 
 import java.io.UnsupportedEncodingException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -67,7 +69,7 @@ public class Utils {
     	else if(password.matches("\\w(1)+")){
     		status=Status.error(Password.lowSafe);
     	}else {
-    		status=Status.success(Password.passwordSafe);;
+    		status=Status.success(Password.passwordSafe);
 		}
     	return status;
 	}
@@ -101,5 +103,19 @@ public class Utils {
     		status=Status.success(Email.emailRight);
 		}
     	return status;
+	}
+
+	public static String getRemoteHost(HttpServletRequest request){
+	    String ip = request.getHeader("x-forwarded-for");
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+	        ip = request.getHeader("Proxy-Client-IP");
+	    }
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+	        ip = request.getHeader("WL-Proxy-Client-IP");
+	    }
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+	        ip = request.getRemoteAddr();
+	    }
+	    return ip.equals("0:0:0:0:0:0:0:1")?"127.0.0.1":ip;
 	}
 }

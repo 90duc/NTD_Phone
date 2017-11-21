@@ -39,7 +39,8 @@ public interface MsgInfo {
 		String twoNewPasswordDifferent = "两次新密码不相同";
 		String passwordError = "密码错误";
 		String modifyPasswordSuccess ="修改密码成功";
-		String oldNewDifferent = "新旧密码不一致";
+		String oldPasswordDifferent = "旧密码错误";
+		String oldNewPasswordSame = "新旧密码相同";
 	}
 	
 	public static interface UserName {
@@ -49,6 +50,7 @@ public interface MsgInfo {
 		String longUserName = "用户名太长";
 		String noRightChar = "非英文、数字或中文或\"_\"";
 		String userNameRight = "用户名合适";
+		String newOldNameSame = "新旧昵称相同";
 
 	}
 	
@@ -59,6 +61,7 @@ public interface MsgInfo {
 		String emailRight = "邮箱正确";
 		String nullEmail = "邮箱为空";
 		String modifyEmailSuccess = "修改邮箱成功";
+		String newOldEmailSame = "新旧邮箱相同";
 
 	}
 }

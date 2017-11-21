@@ -7,4 +7,6 @@ public interface NameInfo {
 	String msg = "msg";
 	//String account = "account";
 	String userId = "userId";
+	String loginInfo ="loginInfo";
+	String sensitiveOperation = "operate";
 }
