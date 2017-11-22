@@ -8,6 +8,12 @@ public interface MsgInfo {
 		String dataNoSync = "数据不同步";		
 
 	}
+	public static interface Info {
+
+		String saveSuccess = "保存成功";
+
+	}
+	
 	public static interface Register {
 
 		String registerSuccess = "注册成功";	

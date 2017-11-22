@@ -19,6 +19,8 @@ public class URL {
 		String sensitiveOperation = base + "/operate";
 		String icon = base + "/icon";
 		String nickName = base + "/nickname";
+		String modifyInfo =  base +"/modifyInfo";
+		String modifyDetail = base +"/modifyDetail";
 	}
 
 	public static interface Phone {

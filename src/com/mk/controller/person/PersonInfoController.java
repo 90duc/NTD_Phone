@@ -17,6 +17,7 @@ import com.mk.info.MsgInfo.UserName;
 import com.mk.info.NameInfo;
 import com.mk.info.MsgInfo.Email;
 import com.mk.info.MsgInfo.Login;
+import com.mk.info.UserDetail;
 import com.mk.info.status.Status;
 import com.mk.service.impl.UserService;
 import com.mk.url.URL;
@@ -70,6 +71,46 @@ public class PersonInfoController {
 			map.put(NameInfo.msg, status.getValue());
 		}
 		else map = userService.modifyNickName(id,oldName, newName);
+		
+		return map;	
+	
+	}
+	
+	@ResponseBody
+	@RequestMapping(URL.Person.modifyInfo)
+	public Map<String, Object> modifyInfo(String sex,String birthday,String info) {
+
+		Map<String, Object> map = null;
+		Integer id =(Integer) session.getAttribute(NameInfo.userId);
+		if (id == null){
+			// 未登录
+			map = new HashMap<>();
+			Status status = Status.error(Login.noLogin);
+			map.put(NameInfo.status, status.isSuccess());
+			map.put(NameInfo.msg, status.getValue());
+		}else {
+			map = userService.modifyInfo(id,sex,birthday,info);
+		}
+		
+		return map;	
+	
+	}
+	
+	@ResponseBody
+	@RequestMapping(URL.Person.modifyDetail)
+	public Map<String, Object> modifyDetail(UserDetail userDetail) {
+
+		Map<String, Object> map = null;
+		Integer id =(Integer) session.getAttribute(NameInfo.userId);
+		if (id == null){
+			// 未登录
+			map = new HashMap<>();
+			Status status = Status.error(Login.noLogin);
+			map.put(NameInfo.status, status.isSuccess());
+			map.put(NameInfo.msg, status.getValue());
+		}else {
+			map = userService.modifyDetail(id,userDetail);
+		}
 		
 		return map;	
 	

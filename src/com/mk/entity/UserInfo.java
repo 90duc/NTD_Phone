@@ -31,7 +31,6 @@ public class UserInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "uid")
     private Integer uid;
@@ -44,7 +43,9 @@ public class UserInfo implements Serializable {
     private String info;
     @Column(name = "blood")
     private String blood;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "body")
+    private String body;
+	// @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "height")
     private Double height;
     @Column(name = "marriage")
@@ -117,6 +118,13 @@ public class UserInfo implements Serializable {
         this.blood = blood;
     }
 
+    public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
     public Double getHeight() {
         return height;
     }

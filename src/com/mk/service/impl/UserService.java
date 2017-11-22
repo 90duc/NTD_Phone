@@ -1,5 +1,8 @@
 package com.mk.service.impl;
 
+import java.lang.reflect.Field;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -22,11 +25,13 @@ import com.mk.entity.User;
 import com.mk.entity.UserInfo;
 import com.mk.info.MsgInfo.Account;
 import com.mk.info.MsgInfo.Email;
+import com.mk.info.MsgInfo.Info;
 import com.mk.info.MsgInfo.Login;
 import com.mk.info.MsgInfo.OtherError;
 import com.mk.info.MsgInfo.Password;
 import com.mk.info.MsgInfo.Register;
 import com.mk.info.NameInfo;
+import com.mk.info.UserDetail;
 import com.mk.info.status.Status;
 import com.mk.util.*;
 
@@ -85,7 +90,7 @@ public class UserService extends Service<User, UserDao> {
 				user.setPassword(password);
 				// 保存成功
 				if (dao.save(user)) {
-					status = Status.error(Register.registerSuccess);
+					status = Status.success(Register.registerSuccess);
 				} else
 				// 数据库出错
 				{
@@ -297,6 +302,98 @@ public class UserService extends Service<User, UserDao> {
 			}
 		}
 		// 填充返回结果
+		map.put(NameInfo.status, status.isSuccess());
+		map.put(NameInfo.msg, status.getValue());
+
+		return map;
+	}
+
+	public Map<String, Object> modifyInfo(Integer id, String sex,
+			String birthday, String info) {
+		info = Utils.toTrimOrNull(info);
+		Date birth = null;
+		try {
+			birth = new SimpleDateFormat("yyyy-MM-dd").parse(birthday);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		Status status = null;
+		String lock = getLock(id, "u");
+
+		synchronized (lock) {
+			UserInfo userInfo = userInfoDao.get(id);
+			// 账号不存在
+			if (Utils.isNull(userInfo)) {
+				userInfo = new UserInfo(id);
+			}
+			userInfo.setSex(sex.charAt(0));
+			userInfo.setBirthday(birth);
+			userInfo.setInfo(info);
+			// 信息保存成功
+			if (userInfoDao.saveOrUpdate(userInfo)) {
+				status = Status.success(Info.saveSuccess);
+			} else
+			// 数据库出错
+			{
+				status = Status.error(OtherError.databaseError);
+			}
+
+		}
+
+		map.put(NameInfo.status, status.isSuccess());
+		map.put(NameInfo.msg, status.getValue());
+
+		return map;
+	}
+
+	public Map<String, Object> modifyDetail(Integer id, UserDetail userDetail) {
+
+		Field[] fs = UserDetail.class.getDeclaredFields();
+		Field[] ufs = UserInfo.class.getDeclaredFields();
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		Status status = null;
+		String lock = getLock(id, "u");
+
+		synchronized (lock) {
+			UserInfo userInfo = userInfoDao.get(id);
+			// 账号不存在
+			if (Utils.isNull(userInfo)) {
+				userInfo = new UserInfo(id);
+			}
+			for (Field f : fs) {
+				f.setAccessible(true);
+				String name = f.getName();
+				for (Field uf : ufs)
+					if (uf.getName().equalsIgnoreCase(name)) {
+						uf.setAccessible(true);
+
+						try {
+							Object value = f.get(userDetail);
+							if (value instanceof String)
+								value = Utils.toTrimOrNull((String) value);
+							uf.set(userInfo, value);
+						} catch (IllegalAccessException e) {
+
+							e.printStackTrace();
+						}
+						break;
+					}
+			}
+
+			// 信息保存成功
+			if (userInfoDao.saveOrUpdate(userInfo)) {
+				status = Status.success(Info.saveSuccess);
+			} else
+			// 数据库出错
+			{
+				status = Status.error(OtherError.databaseError);
+			}
+
+		}
+
 		map.put(NameInfo.status, status.isSuccess());
 		map.put(NameInfo.msg, status.getValue());
 
