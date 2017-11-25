@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mk.dao.impl.Dao;
 import com.mk.service.IService;
@@ -33,6 +35,7 @@ public abstract class Service<T extends Serializable,D extends Dao<T>> implement
 		this.dao = dao;
 	}
 
+	@Transactional
 	@Override
     public T get(Integer id) {
         
@@ -42,6 +45,7 @@ public abstract class Service<T extends Serializable,D extends Dao<T>> implement
         return dao.get(id);
     }
 
+	@Transactional
     @Override
     public T load(Integer id) {
     	if(Utils.isNull(id))
@@ -50,30 +54,34 @@ public abstract class Service<T extends Serializable,D extends Dao<T>> implement
         return dao.load(id);
     }
 
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
     @Override
     public boolean save(T t) {
         
         return dao.save(t);
     }
 
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
     @Override
     public boolean saveOrUpdate(T t) {
         
         return dao.saveOrUpdate(t);
     }
 
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
     @Override
     public boolean update(T t) {
        
         return dao.update(t);
     }
 
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
     @Override
     public boolean delete(T t) {
         
         return dao.delete(t);
     }
-
+    @Transactional
     @Override
     public List<T> list(Integer start,Integer limit) {
 

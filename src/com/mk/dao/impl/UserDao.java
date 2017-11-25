@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mk.entity.Company;
 import com.mk.entity.User;
@@ -13,10 +14,14 @@ import com.mk.entity.User;
 public class UserDao extends Dao<User> {
    
 
-    public User get(String account) {
+    public UserDao() {
+		super(User.class);
+	}
+
+	public User get(String account) {
          
     	User user=null;
-        Session session = factory.openSession();
+        Session session = getSession();
         String hql="from " + entityClass.getSimpleName() + " u where u.email=?";
         try {
             Query query = (Query) session.createQuery(hql);
@@ -27,7 +32,7 @@ public class UserDao extends Dao<User> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        session.close();
+        
         return user;
     }
 

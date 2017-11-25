@@ -2,6 +2,13 @@
 <project adv-config="true">
   <add-on id="spring.test"/>
   <add-on id="spring.web"/>
-  <add-on id="hibernate.extra"/>
   <add-on id="spring.persistence"/>
+  <add-on id="hibernate.extra"/>
+  <container path="com.genuitec.runtime.library/com.genuitec.spring_3.1">
+    <jar-attrs id="data/3.1/dist/org.springframework.orm-3.1.1.RELEASE.jar">
+      <attribute name="javadoc_location" value="http://static.springsource.org/spring/docs/3.1.x/javadoc-api/"/>
+      <attribute name="source-path-root"/>
+      <attribute name="source-path" value="E:\Java\公共API包\spring3.2.0源码\spring-orm-3.2.0.RELEASE-sources.jar"/>
+    </jar-attrs>
+  </container>
 </project>

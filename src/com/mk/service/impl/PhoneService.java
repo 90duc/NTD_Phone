@@ -1,16 +1,16 @@
 package com.mk.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mk.dao.impl.CompanyDao;
 import com.mk.dao.impl.PhoneDao;
 import com.mk.entity.Company;
 import com.mk.entity.Phone;
 import com.mk.util.Utils;
-
+@Transactional
 @org.springframework.stereotype.Service
 public class PhoneService extends Service<Phone, PhoneDao> {
 

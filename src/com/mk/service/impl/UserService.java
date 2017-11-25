@@ -1,7 +1,6 @@
 package com.mk.service.impl;
 
 import java.lang.reflect.Field;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,9 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mk.dao.impl.LoginInfoDao;
 import com.mk.dao.impl.SensitiveOperationDao;
@@ -35,6 +33,7 @@ import com.mk.info.UserDetail;
 import com.mk.info.status.Status;
 import com.mk.util.*;
 
+@Transactional
 @org.springframework.stereotype.Service
 public class UserService extends Service<User, UserDao> {
 
@@ -53,7 +52,7 @@ public class UserService extends Service<User, UserDao> {
 			status = Status.success(Login.loginSuccess);
 
 		} else {
-			status = Status.error(Password.twoPasswordDifferent);
+			status = Status.error(Password.passwordError);
 		}
 
 		map.put(NameInfo.user, user);
