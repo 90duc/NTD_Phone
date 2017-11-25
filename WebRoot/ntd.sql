@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2017-11-19 10:53:07
+Date: 2017-11-25 22:43:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,6 +29,37 @@ CREATE TABLE `bean` (
 -- ----------------------------
 INSERT INTO `bean` VALUES ('a');
 INSERT INTO `bean` VALUES ('子鼠');
+
+-- ----------------------------
+-- Table structure for buyer_remark
+-- ----------------------------
+DROP TABLE IF EXISTS `buyer_remark`;
+CREATE TABLE `buyer_remark` (
+  `pid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `time` date DEFAULT NULL,
+  `text` varchar(255) DEFAULT NULL,
+  `rank` int(11) DEFAULT NULL,
+  `agree` int(11) DEFAULT '0',
+  PRIMARY KEY (`pid`,`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of buyer_remark
+-- ----------------------------
+INSERT INTO `buyer_remark` VALUES ('1', '1', '2017-11-23', '范德萨十分大', '8', '0');
+INSERT INTO `buyer_remark` VALUES ('3', '1', '2017-11-25', '不持续创新', '8', '0');
+INSERT INTO `buyer_remark` VALUES ('4', '1', '2017-11-25', '日月潭', '10', '0');
+INSERT INTO `buyer_remark` VALUES ('5', '1', '2017-11-25', '大丰收发到', '6', '0');
+INSERT INTO `buyer_remark` VALUES ('6', '1', '2017-11-23', '下次再接再厉', '8', '0');
+INSERT INTO `buyer_remark` VALUES ('6', '13', '2017-11-23', '非常赞的一部手机', '8', '0');
+INSERT INTO `buyer_remark` VALUES ('6', '14', '2017-11-23', '需要加把劲才能完美', '10', '0');
+INSERT INTO `buyer_remark` VALUES ('7', '1', '2017-11-25', '换个活法', '6', '0');
+INSERT INTO `buyer_remark` VALUES ('8', '1', '2017-11-25', '二恶烷', '6', '0');
+INSERT INTO `buyer_remark` VALUES ('9', '1', '2017-11-25', '多干活', '8', '0');
+INSERT INTO `buyer_remark` VALUES ('20', '1', '2017-11-25', '杜甫江阁店', '10', '0');
+INSERT INTO `buyer_remark` VALUES ('25', '1', '2017-11-25', '吃不饱', '6', '0');
+INSERT INTO `buyer_remark` VALUES ('40', '1', '2017-11-25', '发多少方式', '6', '0');
 
 -- ----------------------------
 -- Table structure for company
@@ -608,6 +639,64 @@ INSERT INTO `imgs` VALUES ('45', 'images/45/8.jpg');
 INSERT INTO `imgs` VALUES ('45', 'images/45/9.jpg');
 
 -- ----------------------------
+-- Table structure for login_info
+-- ----------------------------
+DROP TABLE IF EXISTS `login_info`;
+CREATE TABLE `login_info` (
+  `uid` int(11) NOT NULL,
+  `time` datetime NOT NULL,
+  `ip` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `product` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`uid`,`time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of login_info
+-- ----------------------------
+INSERT INTO `login_info` VALUES ('1', '2017-11-24 23:51:58', '192.168.23.1:32452', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 11:56:04', '192.168.23.1:31788', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 11:59:24', '192.168.23.1:31829', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 12:01:40', '192.168.23.1:31848', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 12:01:46', '192.168.23.1:31848', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 12:52:06', '192.168.23.1:33291', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 12:52:30', '192.168.23.1:33295', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 13:31:08', '192.168.23.1:34114', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 18:29:48', '192.168.23.1:2496', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 18:32:15', '192.168.23.1:2536', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 18:38:57', '192.168.23.2:42543', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 18:47:44', '192.168.23.1:2685', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 18:48:00', '192.168.23.1:2686', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 18:59:23', '192.168.23.1:37441', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 18:59:43', '192.168.23.1:37445', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:01:28', '192.168.23.1:37477', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:01:46', '192.168.23.1:37482', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:02:34', '192.168.23.1:37494', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:03:34', '192.168.23.1:37510', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:07:56', '192.168.23.1:37560', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:11:32', '192.168.23.1:37618', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:21:30', '192.168.23.1:37976', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:21:35', '192.168.23.1:37973', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:21:40', '192.168.23.1:37979', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:21:45', '192.168.23.1:37973', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:21:50', '192.168.23.1:37979', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:21:54', '192.168.23.1:37982', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:22:03', '192.168.23.1:37983', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:22:08', '192.168.23.1:37983', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:22:12', '192.168.23.1:37973', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:22:17', '192.168.23.1:37976', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:22:22', '192.168.23.1:37973', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:22:26', '192.168.23.1:37988', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:22:31', '192.168.23.1:37983', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:22:36', '192.168.23.1:37983', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:22:40', '192.168.23.1:37988', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:22:45', '192.168.23.1:37988', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 19:22:49', '192.168.23.1:37983', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 20:12:57', '192.168.23.1:38810', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 22:09:26', '192.168.23.2:43337', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2017-11-25 22:38:45', 'fe80:0:0:0:2cdb:b043:5267:6e6%10:50559', null, 'NTD Phone');
+
+-- ----------------------------
 -- Table structure for phone
 -- ----------------------------
 DROP TABLE IF EXISTS `phone`;
@@ -689,6 +778,32 @@ INSERT INTO `phone` VALUES ('44', 'images/44/00.jpg', '小米Max 2', '全网通'
 INSERT INTO `phone` VALUES ('45', 'images/45/00.jpg', '荣耀畅玩6X', 'BLN-AL10/4GB RAM/全网通', '6', '989', '7.70', '261', '5.5英寸', '1920x1080像素', '800万像素', '1200万像素+200万像素', '3340mAh', '不可拆卸式电池', '八核', '海思 Kirin 655', '2.1GHz（大四核）,1.7GHz（小四核）', '32GB,64GB', '4GB', '401ppi', '162g', '2016年10月25日');
 
 -- ----------------------------
+-- Table structure for sensitive_operation
+-- ----------------------------
+DROP TABLE IF EXISTS `sensitive_operation`;
+CREATE TABLE `sensitive_operation` (
+  `uid` int(11) NOT NULL,
+  `time` datetime NOT NULL,
+  `ip` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `operation` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`uid`,`time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sensitive_operation
+-- ----------------------------
+INSERT INTO `sensitive_operation` VALUES ('1', '2017-11-20 21:30:51', '127.0.0.1:41811', null, '修改密码');
+INSERT INTO `sensitive_operation` VALUES ('1', '2017-11-20 21:31:09', '127.0.0.1:41811', null, '修改邮箱');
+INSERT INTO `sensitive_operation` VALUES ('1', '2017-11-20 21:34:09', '127.0.0.1:41837', null, '修改邮箱');
+INSERT INTO `sensitive_operation` VALUES ('1', '2017-11-20 23:13:03', '192.168.23.1:9385', null, '修改邮箱');
+INSERT INTO `sensitive_operation` VALUES ('1', '2017-11-20 23:13:17', '192.168.23.1:9385', null, '修改邮箱');
+INSERT INTO `sensitive_operation` VALUES ('1', '2017-11-25 11:58:53', '192.168.23.1:31829', null, '修改邮箱');
+INSERT INTO `sensitive_operation` VALUES ('1', '2017-11-25 11:59:13', '192.168.23.1:31829', null, '修改密码');
+INSERT INTO `sensitive_operation` VALUES ('1', '2017-11-25 11:59:39', '192.168.23.1:31829', null, '修改密码');
+INSERT INTO `sensitive_operation` VALUES ('1', '2017-11-25 11:59:49', '192.168.23.1:31829', null, '修改邮箱');
+
+-- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -699,22 +814,26 @@ CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES ('1', '李四', '123456', '12@qq.com', null);
+INSERT INTO `user` VALUES ('13', '王五', '123456', '123@qq.com', null);
+INSERT INTO `user` VALUES ('14', '马坤', '123456', '124@qq.com', null);
 
 -- ----------------------------
 -- Table structure for user_info
 -- ----------------------------
 DROP TABLE IF EXISTS `user_info`;
 CREATE TABLE `user_info` (
-  `uid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
   `sex` char(1) DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `info` varchar(255) DEFAULT NULL,
   `blood` varchar(255) DEFAULT NULL,
+  `body` varchar(255) DEFAULT NULL,
   `height` double(6,2) DEFAULT NULL,
   `marriage` varchar(255) DEFAULT NULL,
   `education` varchar(255) DEFAULT NULL,
@@ -733,3 +852,36 @@ CREATE TABLE `user_info` (
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
+INSERT INTO `user_info` VALUES ('1', '女', '2017-01-06', '你去玩一样', 'A型', '较瘦', '40.00', '单身', '博士', '爱因斯坦大学', '学生', '20000以上', '重庆', '渝中', '广州市天河区五山街道', '24489833', '2453245413@qq.com', '13819324561');
+INSERT INTO `user_info` VALUES ('13', '女', '2015-03-03', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `user_info` VALUES ('14', '女', '2014-05-03', null, 'O型', '苗条', null, null, null, null, null, '20000以上', 'null', null, null, null, null, null);
+
+-- ----------------------------
+-- Table structure for wanter_remark
+-- ----------------------------
+DROP TABLE IF EXISTS `wanter_remark`;
+CREATE TABLE `wanter_remark` (
+  `pid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `time` date DEFAULT NULL,
+  `text` varchar(255) DEFAULT NULL,
+  `rank` int(11) DEFAULT NULL,
+  `agree` int(11) DEFAULT '0',
+  PRIMARY KEY (`pid`,`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wanter_remark
+-- ----------------------------
+INSERT INTO `wanter_remark` VALUES ('1', '1', '2017-11-23', '菲登斯堡宫', '2', '0');
+INSERT INTO `wanter_remark` VALUES ('3', '1', '2017-11-25', '发多少的说法', '4', '0');
+INSERT INTO `wanter_remark` VALUES ('4', '1', '2017-11-25', '发的发的是', '2', '0');
+INSERT INTO `wanter_remark` VALUES ('5', '1', '2017-11-25', '的空间丰富', '6', '0');
+INSERT INTO `wanter_remark` VALUES ('6', '1', '2017-11-23', '非常期待', '8', '0');
+INSERT INTO `wanter_remark` VALUES ('6', '13', '2017-11-23', '七七好手机的一部，期待能够买得到', '6', '0');
+INSERT INTO `wanter_remark` VALUES ('6', '14', '2017-11-23', '很好', '4', '0');
+INSERT INTO `wanter_remark` VALUES ('7', '1', '2017-11-25', '天太热太热', '8', '0');
+INSERT INTO `wanter_remark` VALUES ('8', '1', '2017-11-25', '凤高蛋糕房', '8', '0');
+INSERT INTO `wanter_remark` VALUES ('9', '1', '2017-11-25', '小灰灰', '10', '0');
+INSERT INTO `wanter_remark` VALUES ('25', '1', '2017-11-25', '放寒假', '8', '0');
+INSERT INTO `wanter_remark` VALUES ('40', '1', '2017-11-25', '大丰收饭店', '10', '0');
