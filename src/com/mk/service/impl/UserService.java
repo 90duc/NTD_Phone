@@ -398,4 +398,8 @@ public class UserService extends Service<User, UserDao> {
 
 		return map;
 	}
+
+	public boolean save(Integer id, String image) {
+		   return dao.save(id,image);
+	}
 }

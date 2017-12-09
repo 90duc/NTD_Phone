@@ -5,9 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.mk.entity.Company;
 import com.mk.entity.User;
 
 @Repository
@@ -35,5 +33,19 @@ public class UserDao extends Dao<User> {
         
         return user;
     }
+
+	public boolean save(Integer id, String image) {
+		    Session session = getSession();
+	        String sql="update user set image=? where uid=?";
+	        try {
+	            Query query = (Query) session.createSQLQuery(sql);
+	            query.setString(0, image);
+	            query.setInteger(1, id);
+	           return query.executeUpdate()>0;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	       return false;
+	}
 
 }

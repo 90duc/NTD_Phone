@@ -17,7 +17,7 @@ public class URL {
 		String modifyEmail = base + "/email";
 		String loginInfo = base + "/loginInfo";
 		String sensitiveOperation = base + "/operate";
-		String icon = base + "/icon";
+		String icon = base + "/uploadIcon";
 		String nickName = base + "/nickname";
 		String modifyInfo =  base +"/modifyInfo";
 		String modifyDetail = base +"/modifyDetail";

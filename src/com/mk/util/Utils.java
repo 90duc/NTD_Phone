@@ -19,6 +19,15 @@ public class Utils {
 
 	}
 
+	public static String getSuffix(String a) {
+		String suffix="";
+        int index =a.lastIndexOf('.');
+        if(index>=0){
+        	suffix=a.substring(index+1);
+        }
+		return suffix;
+	}
+	
 	public static boolean isNullOrSpaceWhite(String a) {
 
 		return a == null || a.trim().isEmpty();
