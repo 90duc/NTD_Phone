@@ -24,6 +24,7 @@ import com.mk.info.NameInfo;
 import com.mk.info.status.Status;
 import com.mk.service.impl.UserService;
 import com.mk.url.URL;
+import com.mk.util.IpUtils;
 import com.mk.util.Utils;
 
 @Controller
@@ -37,7 +38,7 @@ public class AccountController {
 
 	@ResponseBody
 	@RequestMapping(URL.Person.modifyPassword)
-	public Map<String, Object> modifyPassword(String old, String new1,
+	public Map<String, Object> modifyPassword(String old,long time, String new1,
 			String new2,HttpServletRequest request) {
 
 		Map<String, Object> map = null;
@@ -54,10 +55,10 @@ public class AccountController {
 			map.put(NameInfo.status, status.isSuccess());
 			map.put(NameInfo.msg, status.getValue());
 		}else{
-			
+			String preLogin=(String) session.getAttribute(NameInfo.preLogin);
 			Integer id = (Integer) session.getAttribute(NameInfo.userId);
 			if (id != null)
-				map = userService.modifyPassword(id, old, new1);
+				map = userService.modifyPassword(id, old,preLogin,time, new1);
 			else {
 				// 未登录
 				map = new HashMap<>();
@@ -99,7 +100,7 @@ public class AccountController {
 		boolean status=(boolean) map.get(NameInfo.status);
 		if (status){
 			Integer id=(Integer) session.getAttribute(NameInfo.userId);
-			userService.saveModifyOperation(id,Utils.getRemoteHost(request)+':'+request.getRemotePort(),type);
+			userService.saveModifyOperation(id,IpUtils.getIp(request)+':'+request.getRemotePort(),type);
 		}
 	}
 	@ResponseBody

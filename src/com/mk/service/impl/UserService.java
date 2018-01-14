@@ -37,7 +37,7 @@ import com.mk.util.*;
 @org.springframework.stereotype.Service
 public class UserService extends Service<User, UserDao> {
 
-	public Map<String, Object> login(String account, String password) {
+	public Map<String, Object> login(String account, String password,String preLogin,long time) {
 
 		account = Utils.toTrimOrNull(account);
 		// password = Utils.toTrimOrNull(password);
@@ -48,7 +48,7 @@ public class UserService extends Service<User, UserDao> {
 			status = Status.error(Account.accountNoExist);
 		} else
 
-		if (Objects.equals(user.getPassword(), password)) {
+		if (Utils.verifyPassword(password, preLogin, time, user.getPassword())) {
 			status = Status.success(Login.loginSuccess);
 
 		} else {
@@ -86,7 +86,7 @@ public class UserService extends Service<User, UserDao> {
 				user = new User();
 				user.setEmail(account);
 				user.setName(userName);
-				user.setPassword(password);
+				user.setPassword(password.toUpperCase());
 				// 保存成功
 				if (dao.save(user)) {
 					status = Status.success(Register.registerSuccess);
@@ -140,7 +140,7 @@ public class UserService extends Service<User, UserDao> {
 		return userInfo;
 	}
 
-	public Map<String, Object> modifyPassword(Integer id, String oldPassword,
+	public Map<String, Object> modifyPassword(Integer id, String oldPassword,String preLogin,long time,
 			String newPassword) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -153,12 +153,12 @@ public class UserService extends Service<User, UserDao> {
 				// 账号不存在
 				if (Utils.isNull(user)) {
 					status = Status.error(Account.accountNoExist);
-				} else
-				// 账号存在
-				{
+				} else if(Objects.equals(newPassword, user.getPassword())){
+					status = Status.error(Password.oldNewPasswordSame);
+				}else{
 
-					if (Objects.equals(user.getPassword(), oldPassword)) {
-						user.setPassword(newPassword);
+					if (Utils.verifyPassword(oldPassword, preLogin, time, user.getPassword())) {
+						user.setPassword(newPassword.toUpperCase());
 						// 密码保存成功
 						if (dao.update(user)) {
 							status = Status

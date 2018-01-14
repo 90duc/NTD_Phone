@@ -21,6 +21,7 @@ public class URL {
 		String nickName = base + "/nickname";
 		String modifyInfo =  base +"/modifyInfo";
 		String modifyDetail = base +"/modifyDetail";
+		String preLogin = base +"/preLogin";
 	}
 
 	public static interface Phone {

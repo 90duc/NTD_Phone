@@ -1,6 +1,7 @@
 package com.mk.util;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -70,14 +71,14 @@ public class Utils {
     	Status status;
     	if(isNullOrEmpty(password))
     		status=Status.error(Password.nullPassword);
-    	else
+    	/*else
     	if(password.length()<6)
     		status=Status.error(Password.shortPassword);
     	else if(password.length()>20)
     		status=Status.error(Password.longPassword);
     	else if(password.matches("\\w(1)+")){
     		status=Status.error(Password.lowSafe);
-    	}else {
+    	}*/else {
     		status=Status.success(Password.passwordSafe);
 		}
     	return status;
@@ -112,19 +113,13 @@ public class Utils {
     		status=Status.success(Email.emailRight);
 		}
     	return status;
-	}
+  }
+	
+  public static boolean  verifyPassword(String curPassword,String preLogin,long time,String storePassword) {
+	  if(System.currentTimeMillis()-time>5000)
+		  return false;
+	  String mdp =MD5.pass(storePassword+preLogin+time).toUpperCase();
+	  return Objects.equals(curPassword.toUpperCase(), mdp);
+   }
 
-	public static String getRemoteHost(HttpServletRequest request){
-	    String ip = request.getHeader("x-forwarded-for");
-	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
-	        ip = request.getHeader("Proxy-Client-IP");
-	    }
-	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
-	        ip = request.getHeader("WL-Proxy-Client-IP");
-	    }
-	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
-	        ip = request.getRemoteAddr();
-	    }
-	    return ip.equals("0:0:0:0:0:0:0:1")?"127.0.0.1":ip;
-	}
 }

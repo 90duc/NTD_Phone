@@ -9,4 +9,5 @@ public interface NameInfo {
 	String userId = "userId";
 	String loginInfo ="loginInfo";
 	String sensitiveOperation = "operate";
+	String preLogin = "preLogin";
 }

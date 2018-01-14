@@ -22,6 +22,7 @@ import com.mk.info.status.Status;
 import com.mk.service.impl.PhoneService;
 import com.mk.service.impl.UserService;
 import com.mk.url.URL;
+import com.mk.util.IpUtils;
 import com.mk.util.Utils;
 
 @Controller
@@ -44,10 +45,19 @@ public class LoginController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(URL.Person.login)
-	public Map<String, Object> login(String account, String password,HttpServletRequest request) {
+	@RequestMapping(URL.Person.preLogin)
+	public String preLogin() {
 
-		Map<String, Object> map = userService.login(account, password);
+		String id =session.getId()+"|"+System.currentTimeMillis();	
+		session.setAttribute(NameInfo.preLogin, id);
+		return id;
+	}
+	
+	@ResponseBody
+	@RequestMapping(URL.Person.login)
+	public Map<String, Object> login(String account, String password,long time,HttpServletRequest request) {
+        String preLogin=(String) session.getAttribute(NameInfo.preLogin);
+		Map<String, Object> map = userService.login(account, password,preLogin,time);
 		
 		this.saveLoginStatus(map,request);
 		
@@ -59,7 +69,7 @@ public class LoginController {
 		if (status){
 			User user =(User)map.get(NameInfo.user);
 			session.setAttribute(NameInfo.userId, user.getUid());
-			userService.saveLoginInfo(user.getUid(),Utils.getRemoteHost(request)+':'+request.getRemotePort());
+			userService.saveLoginInfo(user.getUid(),IpUtils.getIp(request)+':'+request.getRemotePort());
 		}
 	}
 	
