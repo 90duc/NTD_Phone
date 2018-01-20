@@ -10,22 +10,22 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mk.entity.BuyerRemark;
+import com.mk.entity.Remark;
 
 @Repository
-public class BuyerDao extends Dao<BuyerRemark> {
+public class RemarkDao extends Dao<Remark> {
 	
 	
-	public BuyerDao() {
-		super(BuyerRemark.class);
+	public RemarkDao() {
+		super(Remark.class);
 		
 	}
 
 	public List<Map<String, Object>> list(Integer id,int start,int limit) {
         List<Map<String, Object>> userList =null;
         Session session = getSession();
-        String sql="select r.pid,r.uid,r.text,r.rank,r.time,r.agree,u.name  from " 
-       +"buyer_remark r join user u on r.uid=u.uid where r.pid=? order by r.time desc";
+        String sql="select r.pid,r.uid,r.text,r.rank,r.time,r.agree,r.type,u.name  from " 
+       +"remark r join user u on r.uid=u.uid where r.pid=? order by r.time desc";
         try {
             Query query = (Query) session.createSQLQuery(sql);
             query.setInteger(0, id);
@@ -43,6 +43,7 @@ public class BuyerDao extends Dao<BuyerRemark> {
             		map.put("rank", os[i++]);
             		map.put("time", os[i++]);
             		map.put("agree", os[i++]);
+            		map.put("type", os[i++]);
             		map.put("name", os[i++]);
             		userList.add(map);
             	}

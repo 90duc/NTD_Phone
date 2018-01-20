@@ -33,12 +33,10 @@ public class URL {
 		String detail = base + "/detail";
 		String company = base + "/company";
 		String images = base + "/images";
-		String wantRemark = base + "/wanterRemark";
-		String buyRemark = base + "/buyerRemark";
+		String Remark = base + "/remark";
 		String saveWantRemark = base + "/saveWanter";
 		String saveBuyRemark = base + "/saveBuyer";
-		String checkWantRemark =  base + "/checkWanter";
-		String checkBuyRemark =  base + "/checkBuyer";
+		String checkRemark =  base + "/checkRemark";
 	}
 
 }

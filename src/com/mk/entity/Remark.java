@@ -22,10 +22,10 @@ import javax.persistence.TemporalType;
  * @author MK
  */
 @Entity
-@Table(name = "buyer_remark")
+@Table(name = "remark")
 @NamedQueries({
-    @NamedQuery(name = "BuyerRemark.findAll", query = "SELECT b FROM BuyerRemark b")})
-public class BuyerRemark implements Serializable {
+    @NamedQuery(name = "Remark.findAll", query = "SELECT b FROM Remark b")})
+public class Remark implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -39,15 +39,16 @@ public class BuyerRemark implements Serializable {
     private Integer rank;
     @Column(name = "agree")
     private Integer agree=0;
-    
-    public BuyerRemark() {
+    @Column(name = "type")
+    private Integer type=0;
+    public Remark() {
     }
 
-    public BuyerRemark(RemarkPK buyerRemarkPK) {
+    public Remark(RemarkPK buyerRemarkPK) {
         this.pk = buyerRemarkPK;
     }
 
-    public BuyerRemark(int pid, int uid) {
+    public Remark(int pid, int uid) {
         this.pk = new RemarkPK(pid, uid);
     }
 
@@ -91,6 +92,14 @@ public class BuyerRemark implements Serializable {
 		this.agree = agree;
 	}
 
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
 	@Override
     public int hashCode() {
         int hash = 0;
@@ -101,10 +110,10 @@ public class BuyerRemark implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof BuyerRemark)) {
+        if (!(object instanceof Remark)) {
             return false;
         }
-        BuyerRemark other = (BuyerRemark) object;
+        Remark other = (Remark) object;
         if ((this.pk == null && other.pk != null) || (this.pk != null && !this.pk.equals(other.pk))) {
             return false;
         }
@@ -113,7 +122,7 @@ public class BuyerRemark implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mk.entity.BuyerRemark[ buyerRemarkPK=" + pk + " ]";
+        return "com.mk.entity.Remark[ RemarkPK=" + pk + " ]";
     }
     
 }

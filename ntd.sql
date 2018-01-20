@@ -10,41 +10,10 @@ Target Server Type    : MYSQL
 Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2017-12-09 23:52:06
+Date: 2018-01-20 22:23:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for buyer_remark
--- ----------------------------
-DROP TABLE IF EXISTS `buyer_remark`;
-CREATE TABLE `buyer_remark` (
-  `pid` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
-  `time` date DEFAULT NULL,
-  `text` varchar(255) DEFAULT NULL,
-  `rank` int(11) DEFAULT NULL,
-  `agree` int(11) DEFAULT '0',
-  PRIMARY KEY (`pid`,`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of buyer_remark
--- ----------------------------
-INSERT INTO `buyer_remark` VALUES ('1', '1', '2017-11-23', '范德萨十分大', '8', '0');
-INSERT INTO `buyer_remark` VALUES ('3', '1', '2017-11-25', '不持续创新', '8', '0');
-INSERT INTO `buyer_remark` VALUES ('4', '1', '2017-11-25', '日月潭', '10', '0');
-INSERT INTO `buyer_remark` VALUES ('5', '1', '2017-11-25', '大丰收发到', '6', '0');
-INSERT INTO `buyer_remark` VALUES ('6', '1', '2017-11-23', '下次再接再厉', '8', '0');
-INSERT INTO `buyer_remark` VALUES ('6', '13', '2017-11-23', '非常赞的一部手机', '8', '0');
-INSERT INTO `buyer_remark` VALUES ('6', '14', '2017-11-23', '需要加把劲才能完美', '10', '0');
-INSERT INTO `buyer_remark` VALUES ('7', '1', '2017-11-25', '换个活法', '6', '0');
-INSERT INTO `buyer_remark` VALUES ('8', '1', '2017-11-25', '二恶烷', '6', '0');
-INSERT INTO `buyer_remark` VALUES ('9', '1', '2017-11-25', '多干活', '8', '0');
-INSERT INTO `buyer_remark` VALUES ('20', '1', '2017-11-25', '杜甫江阁店', '10', '0');
-INSERT INTO `buyer_remark` VALUES ('25', '1', '2017-11-25', '吃不饱', '6', '0');
-INSERT INTO `buyer_remark` VALUES ('40', '1', '2017-11-25', '发多少方式', '6', '0');
 
 -- ----------------------------
 -- Table structure for company
@@ -2715,7 +2684,12 @@ CREATE TABLE `login_info` (
 -- ----------------------------
 -- Records of login_info
 -- ----------------------------
-INSERT INTO `login_info` VALUES ('1', '2017-12-09 23:46:54', 'fe80:0:0:0:2cdb:b043:5267:6e6%10:19639', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2018-01-14 00:19:48', '192.168.23.1:45197', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2018-01-14 13:50:06', '192.168.23.1:12033', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2018-01-20 21:23:52', '192.168.23.1:20590', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('1', '2018-01-20 21:42:09', '192.168.23.1:20850', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('15', '2018-01-13 22:54:34', '192.168.23.1:43959', null, 'NTD Phone');
+INSERT INTO `login_info` VALUES ('16', '2018-01-13 23:49:25', '192.168.23.1:44756', null, 'NTD Phone');
 
 -- ----------------------------
 -- Table structure for phone
@@ -2747,7 +2721,7 @@ CREATE TABLE `phone` (
   PRIMARY KEY (`pid`),
   KEY `cid` (`cid`),
   KEY `FK65B3D6E2ADE3533` (`cid`)
-) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=220 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of phone
@@ -2973,6 +2947,25 @@ INSERT INTO `phone` VALUES ('218', 'images/218/00.jpg', '魅族魅蓝E2', '4GB R
 INSERT INTO `phone` VALUES ('219', 'images/219/00.jpg', '荣耀畅玩5C', 'NEM-TL00H/移动4G', '7', '830', '7.00', '171', '5.2英寸', '1920x1080像素', '800万像素', '1300万像素', '3000mAh', '不可拆卸式电池', '八核', '海思 Kirin 650', '2.0GHz（大四核）,1.7GHz（小四核）', '16GB', '2GB', '424ppi', '156g', '2016年04月');
 
 -- ----------------------------
+-- Table structure for remark
+-- ----------------------------
+DROP TABLE IF EXISTS `remark`;
+CREATE TABLE `remark` (
+  `pid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `time` date DEFAULT NULL,
+  `text` varchar(255) DEFAULT NULL,
+  `rank` int(11) DEFAULT NULL,
+  `agree` int(11) DEFAULT '0',
+  `type` int(1) DEFAULT '0' COMMENT '0表示想买，1表示已买',
+  PRIMARY KEY (`pid`,`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of remark
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sensitive_operation
 -- ----------------------------
 DROP TABLE IF EXISTS `sensitive_operation`;
@@ -2997,6 +2990,9 @@ INSERT INTO `sensitive_operation` VALUES ('1', '2017-11-25 11:58:53', '192.168.2
 INSERT INTO `sensitive_operation` VALUES ('1', '2017-11-25 11:59:13', '192.168.23.1:31829', null, '修改密码');
 INSERT INTO `sensitive_operation` VALUES ('1', '2017-11-25 11:59:39', '192.168.23.1:31829', null, '修改密码');
 INSERT INTO `sensitive_operation` VALUES ('1', '2017-11-25 11:59:49', '192.168.23.1:31829', null, '修改邮箱');
+INSERT INTO `sensitive_operation` VALUES ('1', '2018-01-14 00:07:07', '192.168.23.1:44974', null, '修改密码');
+INSERT INTO `sensitive_operation` VALUES ('1', '2018-01-14 00:17:12', '192.168.23.1:45145', null, '修改密码');
+INSERT INTO `sensitive_operation` VALUES ('1', '2018-01-14 13:50:34', '192.168.23.1:12051', null, '修改密码');
 
 -- ----------------------------
 -- Table structure for user
@@ -3009,14 +3005,16 @@ CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '李四', '123456', '12@qq.com', 'icon/1.jpg');
-INSERT INTO `user` VALUES ('13', '王五', '123456', '123@qq.com', 'icon/13.jpg');
-INSERT INTO `user` VALUES ('14', '马坤', '123456', '124@qq.com', null);
+INSERT INTO `user` VALUES ('1', '李四', 'E10ADC3949BA59ABBE56E057F20F883E', '12@qq.com', 'icon/1.jpg');
+INSERT INTO `user` VALUES ('13', '王五', 'E10ADC3949BA59ABBE56E057F20F883E', '123@qq.com', 'icon/13.jpg');
+INSERT INTO `user` VALUES ('14', '马坤', 'E10ADC3949BA59ABBE56E057F20F883E', '124@qq.com', null);
+INSERT INTO `user` VALUES ('15', '明坤', 'E10ADC3949BA59ABBE56E057F20F883E', '127@qq.com', null);
+INSERT INTO `user` VALUES ('16', '茅坤', 'E10ADC3949BA59ABBE56E057F20F883E', '1234@qq.com', null);
 
 -- ----------------------------
 -- Table structure for user_info
@@ -3050,33 +3048,3 @@ CREATE TABLE `user_info` (
 INSERT INTO `user_info` VALUES ('1', '女', '2017-01-06', '你去玩一样', 'A型', '较瘦', '40.00', '单身', '博士', '爱因斯坦大学', '学生', '20000以上', '重庆', '渝中', '广州市天河区五山街道', '24489833', '2453245413@qq.com', '13819324561');
 INSERT INTO `user_info` VALUES ('13', '女', '2015-03-03', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `user_info` VALUES ('14', '女', '2014-05-03', null, 'O型', '苗条', null, null, null, null, null, '20000以上', 'null', null, null, null, null, null);
-
--- ----------------------------
--- Table structure for wanter_remark
--- ----------------------------
-DROP TABLE IF EXISTS `wanter_remark`;
-CREATE TABLE `wanter_remark` (
-  `pid` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
-  `time` date DEFAULT NULL,
-  `text` varchar(255) DEFAULT NULL,
-  `rank` int(11) DEFAULT NULL,
-  `agree` int(11) DEFAULT '0',
-  PRIMARY KEY (`pid`,`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of wanter_remark
--- ----------------------------
-INSERT INTO `wanter_remark` VALUES ('1', '1', '2017-11-23', '菲登斯堡宫', '2', '0');
-INSERT INTO `wanter_remark` VALUES ('3', '1', '2017-11-25', '发多少的说法', '4', '0');
-INSERT INTO `wanter_remark` VALUES ('4', '1', '2017-11-25', '发的发的是', '2', '0');
-INSERT INTO `wanter_remark` VALUES ('5', '1', '2017-11-25', '的空间丰富', '6', '0');
-INSERT INTO `wanter_remark` VALUES ('6', '1', '2017-11-23', '非常期待', '8', '0');
-INSERT INTO `wanter_remark` VALUES ('6', '13', '2017-11-23', '七七好手机的一部，期待能够买得到', '6', '0');
-INSERT INTO `wanter_remark` VALUES ('6', '14', '2017-11-23', '很好', '4', '0');
-INSERT INTO `wanter_remark` VALUES ('7', '1', '2017-11-25', '天太热太热', '8', '0');
-INSERT INTO `wanter_remark` VALUES ('8', '1', '2017-11-25', '凤高蛋糕房', '8', '0');
-INSERT INTO `wanter_remark` VALUES ('9', '1', '2017-11-25', '小灰灰', '10', '0');
-INSERT INTO `wanter_remark` VALUES ('25', '1', '2017-11-25', '放寒假', '8', '0');
-INSERT INTO `wanter_remark` VALUES ('40', '1', '2017-11-25', '大丰收饭店', '10', '0');

@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mk.dao.IDao;
-import com.mk.entity.BuyerRemark;
+import com.mk.entity.Remark;
 
 /**
  * 
