@@ -141,6 +141,22 @@ public abstract class Dao<T extends Serializable> implements IDao<T> {
 
 		return userList;
 	}
+	
+	@Override
+	public long size(){
+		Session session = getSession();
+		String hql = "select count(*) from " + entityClass.getSimpleName();
+		try {
+			Query query = (Query) session.createQuery(hql);
+			List<Long> list = query.list();
+			return list.get(0);
+
+		} catch (Exception e) {
+			// e.printStackTrace();
+		}
+		return 0;
+		
+	}
 
 	public Class<T> getEntityClass() {
 		return entityClass;

@@ -17,4 +17,5 @@ public interface IDao<T> {
      public boolean update(T t);
      public boolean delete(T t);     
      public List<T> list(Integer start, Integer limit);
+     public long size();
 }

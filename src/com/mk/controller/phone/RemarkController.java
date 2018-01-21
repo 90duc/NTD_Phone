@@ -24,7 +24,7 @@ public class RemarkController {
 	
 	@ResponseBody
 	@RequestMapping(URL.Phone.Remark)
-	public List<Map<String, Object>> getRemark(Integer id, Integer start, Integer limit) {
+	public Map<String, Object> getRemark(Integer id, Integer start, Integer limit) {
 
 		return remarkService.getRemark(id, start, limit);
 

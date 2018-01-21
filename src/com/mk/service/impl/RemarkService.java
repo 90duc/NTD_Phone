@@ -26,15 +26,18 @@ public class RemarkService {
 
 
 
-	public List<Map<String, Object>> getRemark(Integer id, Integer start,
+	public Map<String, Object> getRemark(Integer id, Integer start,
 			Integer limit) {
 		List<Map<String, Object>> wList = null;
 
 		if (Utils.isNull(id) || Utils.isNull(start) || Utils.isNull(limit))
-			return wList;
+			return null;
 
 		wList = remarkDao.list(id, start, limit);
-		return wList;
+		Map<String, Object> map=new HashMap<>();
+		map.put("size", remarkDao.size());
+		map.put("list", wList);
+		return map;
 	}
 
 
