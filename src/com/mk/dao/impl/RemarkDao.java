@@ -71,4 +71,31 @@ public class RemarkDao extends Dao<Remark> {
   
 		return false;
 	}
+
+	public Map<String, Object> getRemakRange(Integer pid) {
+		
+		 Map<String, Object> map=new HashMap<>();
+	        Session session = getSession();
+	        String sql="select rank,count(1) from " 
+	       +" remark where pid=? group by rank order by rank desc";
+	        try {
+	            Query query = (Query) session.createSQLQuery(sql);
+	            query.setInteger(0, pid);
+	            List<Object[]> list = query.list();
+	            int d=0;
+	            int[] data=new int[5];
+	            for(Object[] os:list){
+	            	data[Integer.parseInt(os[0].toString())/2-1]=Integer.parseInt(os[1].toString());
+	            	d+=Integer.parseInt(os[1].toString());
+	            }
+	            map.put("size", d);
+				map.put("range", data);
+	           
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	       
+	
+	        return map;
+	}
 }

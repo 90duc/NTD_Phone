@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mk.entity.Company;
 import com.mk.entity.Phone;
+import com.mk.info.NameInfo;
 import com.mk.service.impl.PhoneService;
 import com.mk.url.URL;
 
@@ -69,10 +72,27 @@ public class PhoneController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(URL.Phone.remarkPhone)
+	public List<Phone> getRemarkPhone(Integer start,Integer limit,HttpSession session) {
+		
+		Integer uid =(Integer) session.getAttribute(NameInfo.userId);
+		List<Phone> list=phoneService.getRemarkPhone(uid,start, limit);
+		
+		 return list;
+	}
+	
+	@ResponseBody
 	@RequestMapping(URL.Phone.typeList)
 	public List<Phone> typeList(String type,Integer start,Integer limit) {
 		
 		 List<Phone> list=phoneService.typeList(type,start, limit);	
+		 return list;
+	}
+	@ResponseBody
+	@RequestMapping(URL.Phone.recommend)
+	public List<Phone> getRecommend(Integer start,Integer limit) {
+		
+		 List<Phone> list=phoneService.getRecommend(start, limit);	
 		 return list;
 	}
 	

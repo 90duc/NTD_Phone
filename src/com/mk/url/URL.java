@@ -37,6 +37,8 @@ public class URL {
 		String saveWantRemark = base + "/saveWanter";
 		String saveBuyRemark = base + "/saveBuyer";
 		String checkRemark =  base + "/checkRemark";
+		String remarkRange =  base + "/remarkRange";
+		String recommend = base + "/recommend";
+		String remarkPhone =base + "/remarkPhone";
 	}
-
 }

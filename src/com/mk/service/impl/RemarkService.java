@@ -86,4 +86,14 @@ public class RemarkService {
 		return map;
 	}
 
+
+	public Map<String, Object> getRemarkRange(Integer pid) {
+		
+
+		if (Utils.isNull(pid))
+			return null;
+
+		return remarkDao.getRemakRange(pid);
+	}
+
 }

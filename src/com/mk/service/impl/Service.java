@@ -90,4 +90,9 @@ public abstract class Service<T extends Serializable,D extends Dao<T>> implement
 		
         return dao.list(start,limit);
     }
+    
+    @Override
+    public  long size(){
+		 return 0;
+	 }
 }

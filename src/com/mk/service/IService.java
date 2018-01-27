@@ -12,5 +12,4 @@ import com.mk.dao.IDao;
  */
 public interface IService<T> extends IDao<T>{
     
- 
 }

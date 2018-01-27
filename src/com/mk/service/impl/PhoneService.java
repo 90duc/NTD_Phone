@@ -28,11 +28,8 @@ public class PhoneService extends Service<Phone, PhoneDao> {
 			return ps;
 
 		text = Utils.toTrimOrNull(text);
-		if (Utils.isNullOrEmpty(text))
-			ps = dao.list(start, limit);
-		else {
-			ps = dao.search(text, start, limit);
-		}
+		ps = dao.search(text, start, limit);
+		
 
 		return ps;
 	}
@@ -115,5 +112,17 @@ public class PhoneService extends Service<Phone, PhoneDao> {
 		
 		return ps;
 	}
+
+	public List<Phone> getRecommend(Integer start, Integer limit) {
+		
+		return hobby(hobbys[0][2],start,limit);
+	}
+
+	public List<Phone> getRemarkPhone(Integer uid,Integer start, Integer limit) {
+		
+		
+		return dao.getRemarkPhone(uid,start, limit);
+	}
+
 
 }
