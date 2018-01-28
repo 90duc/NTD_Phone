@@ -51,7 +51,7 @@ public class RemarkController {
 	public Map<String, Object> saveWanter(String text,Integer pid,Integer rank) {
 
 		Integer uid =(Integer) session.getAttribute(NameInfo.userId);
-		return remarkService.saveRemark(text,pid,uid,rank*2,0);
+		return remarkService.saveRemark(text,pid,uid,rank,0);
 
 	}
 	
@@ -60,7 +60,7 @@ public class RemarkController {
 	public Map<String, Object> saveBuyer(String text,Integer pid,Integer rank) {
 
 		Integer uid =(Integer) session.getAttribute(NameInfo.userId);
-		return remarkService.saveRemark(text,pid,uid,rank*2,1);
+		return remarkService.saveRemark(text,pid,uid,rank,1);
 
 	}
 
