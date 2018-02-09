@@ -1,18 +1,23 @@
 package com.mk.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mk.dao.impl.CompanyDao;
 import com.mk.dao.impl.PhoneDao;
+import com.mk.dao.impl.RecommendDao;
 import com.mk.entity.Company;
 import com.mk.entity.Phone;
 import com.mk.util.Utils;
 @Transactional
 @org.springframework.stereotype.Service
 public class PhoneService extends Service<Phone, PhoneDao> {
+    
+	@Autowired
+    private RecommendDao recommendDao;
+
 
 	public List<String> getImages(Integer id) {
 		List<String> ps = null;
@@ -100,8 +105,6 @@ public class PhoneService extends Service<Phone, PhoneDao> {
 		return ps;
 	}
 
-	@Autowired
-	private CompanyDao companyDao;
 	
 	public List<Company> topCompany(Integer start, Integer limit) {
 		List<Company> ps = null;
@@ -113,9 +116,24 @@ public class PhoneService extends Service<Phone, PhoneDao> {
 		return ps;
 	}
 
-	public List<Phone> getRecommend(Integer start, Integer limit) {
-		
-		return hobby(hobbys[0][2],start,limit);
+	final String[] recommType={"user","item","phone"};
+	public List<Phone> getRecommend(Integer start, Integer limit,String type,Integer uid, Integer pid) {
+		List<Phone> phones=null;
+		List<Integer> pidList=null;
+		if(recommType[0].equalsIgnoreCase(type)){
+			pidList=recommendDao.queryUserRecom(uid==null?1:uid, start, limit);
+		}else if(recommType[1].equalsIgnoreCase(type)){
+			pidList=recommendDao.queryItemRecom(pid, start, limit);
+		}else if(recommType[2].equalsIgnoreCase(type)){
+			pidList=recommendDao.queryPhoneRecom(pid, start, limit);
+		}
+		if(pidList!=null){
+			phones=new ArrayList<>();
+			for (Integer u : pidList) {
+				phones.add(dao.get(u));
+			}
+		}
+		return phones;
 	}
 
 	public List<Phone> getRemarkPhone(Integer uid,Integer start, Integer limit) {

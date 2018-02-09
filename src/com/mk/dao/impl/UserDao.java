@@ -40,7 +40,7 @@ public class UserDao extends Dao<User> {
 	        try {
 	            Query query = (Query) session.createSQLQuery(sql);
 	            query.setString(0, image);
-	            query.setInteger(1, id);
+	            query.setLong(1, id);
 	           return query.executeUpdate()>0;
 	        } catch (Exception e) {
 	            e.printStackTrace();

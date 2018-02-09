@@ -84,15 +84,16 @@ public class PhoneController {
 	@ResponseBody
 	@RequestMapping(URL.Phone.typeList)
 	public List<Phone> typeList(String type,Integer start,Integer limit) {
-		
+		 
 		 List<Phone> list=phoneService.typeList(type,start, limit);	
 		 return list;
 	}
 	@ResponseBody
 	@RequestMapping(URL.Phone.recommend)
-	public List<Phone> getRecommend(Integer start,Integer limit) {
+	public List<Phone> getRecommend(Integer start,Integer limit,String type,Integer pid,HttpSession session) {
 		
-		 List<Phone> list=phoneService.getRecommend(start, limit);	
+		 Integer uid =(Integer) session.getAttribute(NameInfo.userId);
+		 List<Phone> list=phoneService.getRecommend(start, limit,type,uid,pid);	
 		 return list;
 	}
 	
