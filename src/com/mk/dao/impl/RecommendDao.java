@@ -18,12 +18,12 @@ public class RecommendDao extends Dao<Phone> {
 
 	public RecommendDao() {
 		super(Phone.class);
-		
+
 	}
 
-	public List<Integer> queryPhoneRecom(int pid,int start,int limit) {
+	public List<Integer> queryPhoneRecom(int pid, int start, int limit) {
 		Session session = getSession();
-		List<Integer> list=null;
+		List<Integer> list = null;
 		String sql = "select dpid from phone_recom where spid=? order by degree desc ";
 		try {
 			Query query = (Query) session.createSQLQuery(sql);
@@ -33,45 +33,54 @@ public class RecommendDao extends Dao<Phone> {
 			list = query.list();
 
 		} catch (Exception e) {
-			 e.printStackTrace();
+			e.printStackTrace();
 		}
 
 		return list;
 	}
-	
-	public List<Integer> queryItemRecom(int uid,int start,int limit) {
+
+	public List<Integer> queryItemRecom(Integer uid, int start, int limit) {
 		Session session = getSession();
-		List<Integer> list=null;
-		String sql = "select pid from item_recom where uid=? order by degree desc ";
+		List<Integer> list = null;
+		String sql = "select pid from item_recom ";
+		if (uid != null)
+			sql = sql + "where uid=? ";
+		sql = sql + "order by degree desc ";
 		try {
 			Query query = (Query) session.createSQLQuery(sql);
-			query.setInteger(0, uid);
+			if (uid != null) {
+				query.setInteger(0, uid);
+			}
 			query.setFirstResult(start);
 			query.setMaxResults(limit);
 			list = query.list();
 
 		} catch (Exception e) {
-			 e.printStackTrace();
+			e.printStackTrace();
 		}
 
 		return list;
 	}
-	
-	public List<Integer> queryUserRecom(int uid,int start,int limit) {
+
+	public List<Integer> queryUserRecom(Integer uid, int start, int limit) {
 		Session session = getSession();
-		List<Integer> list=null;
-		String sql = "select pid from user_recom where uid=? order by degree desc ";
+		List<Integer> list = null;
+		String sql = "select pid from user_recom ";
+		if (uid != null)
+			sql = sql + "where uid=? ";
+		sql = sql + "order by degree desc ";
 		try {
 			Query query = (Query) session.createSQLQuery(sql);
-			query.setInteger(0, uid);
+			if (uid != null) {
+				query.setInteger(0, uid);
+			}
 			query.setFirstResult(start);
 			query.setMaxResults(limit);
 			list = query.list();
 
 		} catch (Exception e) {
-			 e.printStackTrace();
+			e.printStackTrace();
 		}
-
 		return list;
 	}
 }

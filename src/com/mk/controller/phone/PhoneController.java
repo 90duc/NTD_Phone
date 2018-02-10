@@ -99,9 +99,10 @@ public class PhoneController {
 	
 	@ResponseBody
 	@RequestMapping(URL.Phone.company)
-	public List<Company> topCompany(Integer start,Integer limit) {
+	public List<Company> topCompany(String type,String key,String value,Integer start,Integer limit,HttpSession session) {
 		
-		List<Company> list=phoneService.topCompany(start, limit);
+		Integer uid =(Integer) session.getAttribute(NameInfo.userId);
+		List<Company> list=phoneService.topCompany(uid,type,key,value,start, limit);
 		
 		 return list;
 	}

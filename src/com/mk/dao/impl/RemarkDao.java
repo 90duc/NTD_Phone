@@ -21,14 +21,14 @@ public class RemarkDao extends Dao<Remark> {
 		
 	}
 
-	public List<Map<String, Object>> list(Integer id,int start,int limit) {
+	public List<Map<String, Object>> list(Integer pid,int start,int limit) {
         List<Map<String, Object>> userList =null;
         Session session = getSession();
         String sql="select r.pid,r.uid,r.text,r.rank,r.time,r.agree,r.type,u.name  from " 
        +"remark r join user u on r.uid=u.uid where r.pid=? order by r.time desc";
         try {
             Query query = (Query) session.createSQLQuery(sql);
-            query.setInteger(0, id);
+            query.setInteger(0, pid);
             query.setFirstResult(start);
             query.setMaxResults(limit);
             List<Object[]> list = query.list();
