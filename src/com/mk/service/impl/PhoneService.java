@@ -122,7 +122,7 @@ public class PhoneService extends Service<Phone, PhoneDao> {
 			ps = dao.topCompany(start, limit);
 		} else if (companyType[1].equalsIgnoreCase(type)) {
 
-			ps=dao.topRecomCompany(uid, start, limit);
+			ps=dao.topRemarkCompany(uid, start, limit);
 		} else if (companyType[2].equalsIgnoreCase(type)) {
 			int index=getHobbyIndex(key);
 			ps=dao.topCompanyHobby(hobbys[0][index],hobbys[1][index], start, limit);

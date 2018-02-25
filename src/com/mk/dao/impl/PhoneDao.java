@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mk.entity.Company;
-import com.mk.entity.Imgs;
 import com.mk.entity.Phone;
 import com.mk.entity.Remark;
 import com.mk.util.Utils;
@@ -24,10 +23,9 @@ public class PhoneDao extends Dao<Phone> {
 	public List<String> getImages(Integer id) {
 		List<String> userList = null;
 		Session session = getSession();
-		String hql = "select p.imgsPK.image from " + Imgs.class.getSimpleName()
-				+ " p where p.imgsPK.pid=?";
+		String hql = "select image from imgs where pid=?";
 		try {
-			Query query = (Query) session.createQuery(hql);
+			Query query = (Query) session.createSQLQuery(hql);
 			query.setParameter(0, id);
 			userList = query.list();
 
@@ -154,7 +152,7 @@ public class PhoneDao extends Dao<Phone> {
 		return userList;
 	}
 
-	public List<Company> topRecomCompany(Integer uid, Integer start,
+	public List<Company> topRemarkCompany(Integer uid, Integer start,
 			Integer limit) {
 		List<Company> userList = null;
 		Session session = getSession();
