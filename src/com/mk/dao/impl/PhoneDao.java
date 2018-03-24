@@ -36,6 +36,7 @@ public class PhoneDao extends Dao<Phone> {
 		return userList;
 	}
 
+	static final int BASE_REMARK_NUMBER=30;
 	public List<Phone> search(String text, int start, int limit) {
 		List<Phone> userList = null;
 		Session session = getSession();
